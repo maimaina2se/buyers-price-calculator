@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: light)"
+      content="#f6f1e8"
+    />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: dark)"
+      content="#12110f"
+    />
+    <title>Buyer Price Table</title>
+    <meta
+      name="description"
+      content="Tabel kalkulator harga pembeli dari 1kg sampai 50kg."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css?v=20260318" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <div class="brand">
+          <div class="badge">Beko x maimaina2seLAB</div>
+          <p class="tagline">Kalkulator Tabel 1kg - 50kg</p>
+        </div>
+        <h1>Tabel harga pembeli otomatis dari 1kg sampai 50kg.</h1>
+        <p class="lead">
+          Masukkan harga per kg, tabel akan langsung menghitung total harga untuk
+          setiap kg.
+        </p>
+      </section>
+
+      <section class="calculator">
+        <div class="panel">
+          <h2>Masukkan Harga</h2>
+          <label class="field">
+            <span>Harga per kg</span>
+            <div class="input-wrap">
+              <span class="prefix">Rp</span>
+              <input
+                id="hargaPerKgInput"
+                type="text"
+                inputmode="decimal"
+                enterkeyhint="done"
+                placeholder="Contoh: 28.000"
+                aria-label="Harga per kilogram"
+              />
+            </div>
+          </label>
+        </div>
+
+        <div class="panel">
+          <h2>Tabel Harga</h2>
+          <div class="table-wrap">
+            <table class="price-table">
+              <thead>
+                <tr>
+                  <th>Kg</th>
+                  <th>Total (Rp)</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <p>
+          Build by maimaina2se: Dibuat untuk menghitung harga pembeli 1kg sampai
+          50kg secara cepat.
+        </p>
+      </footer>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
