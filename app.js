@@ -6,6 +6,7 @@ const simpananInput = document.getElementById("simpananInput");
 const totalBelanjaOutput = document.getElementById("totalBelanjaOutput");
 const uangInput = document.getElementById("uangInput");
 const kembalianOutput = document.getElementById("kembalianOutput");
+const resetButton = document.getElementById("resetButton");
 const tableBody = document.getElementById("tableBody");
 
 const rupiah = new Intl.NumberFormat("id-ID", {
@@ -60,6 +61,10 @@ function hasNumericValue(input) {
   return input.value.replace(/\D/g, "").length > 0;
 }
 
+function hasAnyValue(inputs) {
+  return inputs.some((input) => hasNumericValue(input));
+}
+
 const totalCells = [];
 
 for (let kg = 1; kg <= 50; kg += 1) {
@@ -87,6 +92,17 @@ function updateTable() {
 }
 
 function updateTotalBelanja() {
+  const totalInputs = [
+    hargaPerKgInput,
+    berapaKgInput,
+    tambahanBelanjaInput,
+    hutangInput,
+    simpananInput,
+  ];
+  if (!hasAnyValue(totalInputs)) {
+    totalBelanjaOutput.value = "";
+    return null;
+  }
   const hargaPerKg = parseNumber(hargaPerKgInput.value);
   const berapaKg = parseNumber(berapaKgInput.value);
   const tambahanBelanja = parseNumber(tambahanBelanjaInput.value);
@@ -98,6 +114,10 @@ function updateTotalBelanja() {
 }
 
 function updateKembalian(totalBelanja) {
+  if (totalBelanja === null) {
+    kembalianOutput.value = "";
+    return;
+  }
   if (!hasNumericValue(uangInput)) {
     kembalianOutput.value = "";
     return;
@@ -132,6 +152,15 @@ inputElements.forEach((input) => {
     event.preventDefault();
     input.blur();
   });
+});
+
+resetButton.addEventListener("click", () => {
+  inputElements.forEach((input) => {
+    input.value = "";
+  });
+  totalBelanjaOutput.value = "";
+  kembalianOutput.value = "";
+  updateAll();
 });
 
 document.addEventListener(
