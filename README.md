@@ -6,12 +6,24 @@ Kalkulator tabel sederhana untuk menghitung harga pembeli dari 1kg sampai 50kg.
 ## Cara Pakai
 
 1. Buka `index.html` di browser.
-2. Isi `Harga per kg`.
-3. Tabel akan terisi otomatis dari 1kg sampai 50kg.
+2. Isi `Harga per Kg`, `Berapa Kg`, dan kebutuhan lainnya.
+3. Total belanja dan kembalian akan terhitung otomatis.
+4. Klik `Reset` untuk menghapus semua input.
 
 ## Rumus
 
-- Total harga = kg x harga per kg
+- Total tabel per baris = kg x harga per kg
+- Total belanja = (harga per kg x berapa kg) + tambahan belanja + hutang - simpanan
+- Kembalian/Kurang = uang - total belanja
+
+## Input
+
+- Harga per Kg
+- Berapa Kg
+- Tambahan Belanja
+- Hutang
+- Simpanan
+- Uang
 
 ## Struktur File
 
