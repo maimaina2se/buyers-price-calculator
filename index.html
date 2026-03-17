@@ -15,6 +15,8 @@
       content="#12110f"
     />
     <title>Buyer Price Table</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png" />
     <meta
       name="description"
       content="Tabel kalkulator harga pembeli dari 1kg sampai 50kg."
@@ -53,21 +55,23 @@
                 type="text"
                 inputmode="numeric"
                 enterkeyhint="done"
+                placeholder=". . ."
                 aria-label="Harga per kilogram"
               />
             </div>
           </label>
           <label class="field">
             <span>Berapa Kg</span>
-            <div class="input-wrap">
-              <span class="prefix">Kg</span>
+            <div class="input-wrap is-suffix">
               <input
                 id="berapaKgInput"
                 type="text"
                 inputmode="numeric"
                 enterkeyhint="done"
+                placeholder=". . ."
                 aria-label="Jumlah kilogram"
               />
+              <span class="suffix">Kg</span>
             </div>
           </label>
           <label class="field">
@@ -79,6 +83,7 @@
                 type="text"
                 inputmode="numeric"
                 enterkeyhint="done"
+                placeholder=". . ."
                 aria-label="Tambahan belanja"
               />
             </div>
@@ -92,6 +97,7 @@
                 type="text"
                 inputmode="numeric"
                 enterkeyhint="done"
+                placeholder=". . ."
                 aria-label="Hutang"
               />
             </div>
@@ -105,6 +111,7 @@
                 type="text"
                 inputmode="numeric"
                 enterkeyhint="done"
+                placeholder=". . ."
                 aria-label="Simpanan"
               />
             </div>
@@ -130,6 +137,7 @@
                 type="text"
                 inputmode="numeric"
                 enterkeyhint="done"
+                placeholder=". . ."
                 aria-label="Uang"
               />
             </div>

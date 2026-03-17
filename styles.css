@@ -171,6 +171,17 @@ h1 {
   padding: 10px 14px;
 }
 
+.input-wrap.is-suffix {
+  grid-template-columns: max-content auto;
+  justify-content: start;
+  column-gap: 4px;
+}
+
+.input-wrap.is-suffix input {
+  text-align: left;
+  width: 8ch;
+}
+
 .input-wrap.is-readonly {
   grid-template-columns: 1fr;
   background: var(--output-bg);
@@ -194,7 +205,8 @@ h1 {
   cursor: default;
 }
 
-.input-wrap .prefix {
+.input-wrap .prefix,
+.input-wrap .suffix {
   font-weight: 600;
   color: var(--accent-dark);
 }
