@@ -45,16 +45,110 @@
         <div class="panel">
           <h2>Masukkan Harga</h2>
           <label class="field">
-            <span>Harga per kg</span>
+            <span>Harga per Kg</span>
             <div class="input-wrap">
               <span class="prefix">Rp</span>
               <input
                 id="hargaPerKgInput"
                 type="text"
-                inputmode="decimal"
+                inputmode="numeric"
                 enterkeyhint="done"
                 placeholder="Contoh: 28.000"
                 aria-label="Harga per kilogram"
+              />
+            </div>
+          </label>
+          <label class="field">
+            <span>Berapa Kg</span>
+            <div class="input-wrap">
+              <span class="prefix">Kg</span>
+              <input
+                id="berapaKgInput"
+                type="text"
+                inputmode="numeric"
+                enterkeyhint="done"
+                placeholder="Contoh: 5"
+                aria-label="Jumlah kilogram"
+              />
+            </div>
+          </label>
+          <label class="field">
+            <span>Tambahan Belanja</span>
+            <div class="input-wrap">
+              <span class="prefix">Rp</span>
+              <input
+                id="tambahanBelanjaInput"
+                type="text"
+                inputmode="numeric"
+                enterkeyhint="done"
+                placeholder="Contoh: 10.000"
+                aria-label="Tambahan belanja"
+              />
+            </div>
+          </label>
+          <label class="field">
+            <span>Hutang</span>
+            <div class="input-wrap">
+              <span class="prefix">Rp</span>
+              <input
+                id="hutangInput"
+                type="text"
+                inputmode="numeric"
+                enterkeyhint="done"
+                placeholder="Contoh: 5.000"
+                aria-label="Hutang"
+              />
+            </div>
+          </label>
+          <label class="field">
+            <span>Simpanan</span>
+            <div class="input-wrap">
+              <span class="prefix">Rp</span>
+              <input
+                id="simpananInput"
+                type="text"
+                inputmode="numeric"
+                enterkeyhint="done"
+                placeholder="Contoh: 2.000"
+                aria-label="Simpanan"
+              />
+            </div>
+          </label>
+          <label class="field is-total">
+            <span>Total Belanja</span>
+            <div class="input-wrap is-readonly">
+              <input
+                id="totalBelanjaOutput"
+                type="text"
+                readonly
+                tabindex="-1"
+                aria-label="Total belanja"
+              />
+            </div>
+          </label>
+          <label class="field">
+            <span>Uang</span>
+            <div class="input-wrap">
+              <span class="prefix">Rp</span>
+              <input
+                id="uangInput"
+                type="text"
+                inputmode="numeric"
+                enterkeyhint="done"
+                placeholder="Contoh: 100.000"
+                aria-label="Uang"
+              />
+            </div>
+          </label>
+          <label class="field">
+            <span>Kembalian/Kurang</span>
+            <div class="input-wrap is-readonly">
+              <input
+                id="kembalianOutput"
+                type="text"
+                readonly
+                tabindex="-1"
+                aria-label="Kembalian"
               />
             </div>
           </label>

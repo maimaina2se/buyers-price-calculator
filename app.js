@@ -1,26 +1,63 @@
 const hargaPerKgInput = document.getElementById("hargaPerKgInput");
+const berapaKgInput = document.getElementById("berapaKgInput");
+const tambahanBelanjaInput = document.getElementById("tambahanBelanjaInput");
+const hutangInput = document.getElementById("hutangInput");
+const simpananInput = document.getElementById("simpananInput");
+const totalBelanjaOutput = document.getElementById("totalBelanjaOutput");
+const uangInput = document.getElementById("uangInput");
+const kembalianOutput = document.getElementById("kembalianOutput");
 const tableBody = document.getElementById("tableBody");
 
 const rupiah = new Intl.NumberFormat("id-ID", {
   style: "currency",
   currency: "IDR",
-  maximumFractionDigits: 2,
+  maximumFractionDigits: 0,
+  minimumFractionDigits: 0,
 });
 
 function parseNumber(value) {
   if (!value) return 0;
-  const cleaned = value
-    .toString()
-    .replace(/\s/g, "")
-    .replace(/\./g, "")
-    .replace(/,/g, ".");
-  const num = Number(cleaned);
+  const cleaned = value.toString().replace(/\D/g, "");
+  const num = Number.parseInt(cleaned, 10);
   return Number.isFinite(num) ? num : 0;
 }
 
 function formatCurrency(value) {
   if (!Number.isFinite(value)) return "Rp 0";
   return rupiah.format(value);
+}
+
+function formatThousands(value) {
+  if (!value) return "";
+  return value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+function formatNumberInput(input) {
+  const rawValue = input.value;
+  const selectionStart =
+    typeof input.selectionStart === "number" ? input.selectionStart : rawValue.length;
+  const digitsBeforeCaret = rawValue
+    .slice(0, selectionStart)
+    .replace(/\D/g, "").length;
+  const digitsOnly = rawValue.replace(/\D/g, "");
+  const formatted = formatThousands(digitsOnly);
+  input.value = formatted;
+
+  if (typeof input.selectionStart !== "number") return;
+
+  let caretIndex = 0;
+  let digitsCount = 0;
+  while (caretIndex < formatted.length && digitsCount < digitsBeforeCaret) {
+    if (/\d/.test(formatted[caretIndex])) {
+      digitsCount += 1;
+    }
+    caretIndex += 1;
+  }
+  input.setSelectionRange(caretIndex, caretIndex);
+}
+
+function hasNumericValue(input) {
+  return input.value.replace(/\D/g, "").length > 0;
 }
 
 const totalCells = [];
@@ -49,21 +86,64 @@ function updateTable() {
   });
 }
 
-hargaPerKgInput.addEventListener("input", updateTable);
-hargaPerKgInput.addEventListener("keydown", (event) => {
-  if (event.key !== "Enter") return;
-  event.preventDefault();
-  hargaPerKgInput.blur();
+function updateTotalBelanja() {
+  const hargaPerKg = parseNumber(hargaPerKgInput.value);
+  const berapaKg = parseNumber(berapaKgInput.value);
+  const tambahanBelanja = parseNumber(tambahanBelanjaInput.value);
+  const hutang = parseNumber(hutangInput.value);
+  const simpanan = parseNumber(simpananInput.value);
+  const total = hargaPerKg * berapaKg + tambahanBelanja + hutang - simpanan;
+  totalBelanjaOutput.value = formatCurrency(total);
+  return total;
+}
+
+function updateKembalian(totalBelanja) {
+  if (!hasNumericValue(uangInput)) {
+    kembalianOutput.value = "";
+    return;
+  }
+  const uang = parseNumber(uangInput.value);
+  const kembalian = uang - totalBelanja;
+  kembalianOutput.value = formatCurrency(kembalian);
+}
+
+function updateAll() {
+  updateTable();
+  const totalBelanja = updateTotalBelanja();
+  updateKembalian(totalBelanja);
+}
+
+const inputElements = [
+  hargaPerKgInput,
+  berapaKgInput,
+  tambahanBelanjaInput,
+  hutangInput,
+  simpananInput,
+  uangInput,
+];
+
+inputElements.forEach((input) => {
+  input.addEventListener("input", (event) => {
+    formatNumberInput(event.target);
+    updateAll();
+  });
+  input.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter") return;
+    event.preventDefault();
+    input.blur();
+  });
 });
 
 document.addEventListener(
   "pointerdown",
   (event) => {
-    if (document.activeElement !== hargaPerKgInput) return;
+    const activeInput = document.activeElement;
+    if (!(activeInput instanceof HTMLInputElement)) return;
+    if (!inputElements.includes(activeInput)) return;
     const target = event.target;
     if (!(target instanceof Element)) return;
     if (target.closest(".input-wrap")) return;
-    hargaPerKgInput.blur();
+    activeInput.blur();
   },
   { passive: true }
 );
@@ -71,8 +151,10 @@ document.addEventListener(
 document.addEventListener(
   "scroll",
   () => {
-    if (document.activeElement !== hargaPerKgInput) return;
-    hargaPerKgInput.blur();
+    const activeInput = document.activeElement;
+    if (!(activeInput instanceof HTMLInputElement)) return;
+    if (!inputElements.includes(activeInput)) return;
+    activeInput.blur();
   },
   { passive: true }
 );
@@ -80,9 +162,11 @@ document.addEventListener(
 document.addEventListener(
   "touchmove",
   () => {
-    if (document.activeElement !== hargaPerKgInput) return;
-    hargaPerKgInput.blur();
+    const activeInput = document.activeElement;
+    if (!(activeInput instanceof HTMLInputElement)) return;
+    if (!inputElements.includes(activeInput)) return;
+    activeInput.blur();
   },
   { passive: true }
 );
-updateTable();
+updateAll();
