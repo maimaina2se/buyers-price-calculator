@@ -3,6 +3,18 @@ calculate the buyer's price
 
 Kalkulator tabel sederhana untuk menghitung harga pembeli dari 1kg sampai 50kg.
 
+## Akses Langsung
+
+https://maimaina2se.github.io/buyers-price-calculator/
+
+## Fitur
+
+- Tabel harga otomatis 1kg sampai 50kg.
+- Perhitungan total belanja berdasarkan harga/kg, jumlah kg, tambahan belanja, hutang, dan simpanan.
+- Hitung kembalian/kurang dari uang yang dibayar.
+- Format angka otomatis dengan pemisah ribuan.
+- Tombol `Reset` untuk menghapus semua input.
+
 ## Cara Pakai
 
 1. Buka `index.html` di browser.
