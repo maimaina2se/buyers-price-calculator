@@ -1,7 +1,7 @@
 {
   "name": "Buyer Price Table",
   "short_name": "Buyer Price",
-  "description": "Kalkulator tabel sederhana untuk menghitung harga pembeli dari 1Kg sampai 50Kg.",
+  "description": "calculator tabel sederhana untuk menghitung harga pembeli dari 1Kg sampai 50Kg.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

@@ -1,13 +1,12 @@
 # Buyer Price Table
-calculate the buyer's price
 
-Kalkulator tabel sederhana untuk menghitung harga pembeli dari 1Kg sampai 50Kg.
+## Bahasa Indonesia
 
-## Akses Langsung
+**Deskripsi**
 
-https://maimaina2se.github.io/buyers-price-calculator/
+calculator tabel sederhana untuk menghitung harga pembeli dari 1Kg sampai 50Kg.
 
-## Fitur
+**Fitur**
 
 - Tabel harga otomatis 1Kg sampai 50Kg.
 - Perhitungan total belanja berdasarkan harga/Kg, jumlah Kg, tambahan belanja, hutang, dan simpanan.
@@ -15,31 +14,24 @@ https://maimaina2se.github.io/buyers-price-calculator/
 - Format angka otomatis dengan pemisah ribuan.
 - Tombol `Reset` untuk menghapus semua input.
 
-## Cara Pakai
+**Akses Langsung**
 
-1. Buka `index.html` di browser.
-2. Isi `Harga per Kg`, `Berapa Kg`, dan kebutuhan lainnya.
-3. Total belanja dan kembalian akan terhitung otomatis.
-4. Klik `Reset` untuk menghapus semua input.
+`https://maimaina2se.github.io/buyers-price-calculator/`
 
-## Rumus
+## English
 
-- Total tabel per baris = Kg x harga per Kg
-- Total belanja = (harga per Kg x berapa Kg) + tambahan belanja + hutang - simpanan
-- Kembalian/Kurang = uang - total belanja
+**Description**
 
-## Input
+Simple price table calculator to compute buyer prices from 1Kg to 50Kg.
 
-- Harga per Kg
-- Berapa Kg
-- Tambahan Belanja
-- Hutang
-- Simpanan
-- Uang
+**Features**
 
-## Struktur File
+- Automatic price table from 1Kg to 50Kg.
+- Total spending calculation based on price/Kg, amount of Kg, extra spending, debt, and savings.
+- Change/short calculation from the amount paid.
+- Automatic thousand separators.
+- `Reset` button to clear all inputs.
 
-- `index.html` - Tampilan utama
-- `styles.css` - Desain dan tema
-- `app.js` - Logika perhitungan
-- `README.md` - Deskripsi proyek
+**Live Access**
+
+`https://maimaina2se.github.io/buyers-price-calculator/`
