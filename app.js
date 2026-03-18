@@ -140,6 +140,27 @@ function blurActiveInput() {
   activeInput.blur();
 }
 
+const SWIPE_BLUR_THRESHOLD = 24;
+const SWIPE_BLUR_IGNORE_MS = 350;
+let ignoreBlurUntil = 0;
+let touchStartY = 0;
+let touchStartX = 0;
+let touchStartTargetIsInput = false;
+let didBlurOnSwipe = false;
+
+function setIgnoreBlurWindow() {
+  ignoreBlurUntil = Math.max(ignoreBlurUntil, performance.now() + SWIPE_BLUR_IGNORE_MS);
+}
+
+function shouldIgnoreSwipeBlur() {
+  return performance.now() < ignoreBlurUntil;
+}
+
+function isInputWrapTarget(target) {
+  if (!(target instanceof Element)) return false;
+  return Boolean(target.closest(".input-wrap"));
+}
+
 const inputElements = [
   hargaPerKgInput,
   berapaKgInput,
@@ -153,6 +174,9 @@ inputElements.forEach((input) => {
   input.addEventListener("input", (event) => {
     formatNumberInput(event.target);
     updateAll();
+  });
+  input.addEventListener("focus", () => {
+    setIgnoreBlurWindow();
   });
   input.addEventListener("keydown", (event) => {
     if (event.key !== "Enter") return;
@@ -181,21 +205,21 @@ document.addEventListener(
   { passive: true }
 );
 
-document.addEventListener(
-  "scroll",
-  () => {
-    blurActiveInput();
-  },
-  { passive: true }
-);
+if (window.visualViewport) {
+  window.visualViewport.addEventListener("resize", () => {
+    setIgnoreBlurWindow();
+  });
+}
 
-let touchStartY = 0;
 document.addEventListener(
   "touchstart",
   (event) => {
-    if (event.touches.length === 1) {
-      touchStartY = event.touches[0].clientY;
-    }
+    if (event.touches.length !== 1) return;
+    const touch = event.touches[0];
+    touchStartY = touch.clientY;
+    touchStartX = touch.clientX;
+    touchStartTargetIsInput = isInputWrapTarget(event.target);
+    didBlurOnSwipe = false;
   },
   { passive: true }
 );
@@ -204,11 +228,23 @@ document.addEventListener(
   "touchmove",
   (event) => {
     if (event.touches.length !== 1) return;
-    const deltaY = Math.abs(event.touches[0].clientY - touchStartY);
-    if (deltaY > 10) {
-      blurActiveInput();
-    }
+    if (didBlurOnSwipe) return;
+    if (shouldIgnoreSwipeBlur()) return;
+    if (touchStartTargetIsInput) return;
+    const activeInput = document.activeElement;
+    if (!(activeInput instanceof HTMLInputElement)) return;
+    if (!inputElements.includes(activeInput)) return;
+
+    const touch = event.touches[0];
+    const deltaY = touch.clientY - touchStartY;
+    const deltaX = touch.clientX - touchStartX;
+    if (Math.abs(deltaY) < SWIPE_BLUR_THRESHOLD) return;
+    if (Math.abs(deltaY) < Math.abs(deltaX)) return;
+
+    blurActiveInput();
+    didBlurOnSwipe = true;
   },
   { passive: true }
 );
+
 updateAll();
