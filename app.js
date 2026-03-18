@@ -71,7 +71,7 @@ for (let kg = 1; kg <= 50; kg += 1) {
   const row = document.createElement("tr");
 
   const kgCell = document.createElement("td");
-  kgCell.textContent = `${kg} kg`;
+  kgCell.textContent = `${kg} Kg`;
 
   const totalCell = document.createElement("td");
   totalCell.textContent = formatCurrency(0);
@@ -133,6 +133,13 @@ function updateAll() {
   updateKembalian(totalBelanja);
 }
 
+function blurActiveInput() {
+  const activeInput = document.activeElement;
+  if (!(activeInput instanceof HTMLInputElement)) return;
+  if (!inputElements.includes(activeInput)) return;
+  activeInput.blur();
+}
+
 const inputElements = [
   hargaPerKgInput,
   berapaKgInput,
@@ -166,13 +173,10 @@ resetButton.addEventListener("click", () => {
 document.addEventListener(
   "pointerdown",
   (event) => {
-    const activeInput = document.activeElement;
-    if (!(activeInput instanceof HTMLInputElement)) return;
-    if (!inputElements.includes(activeInput)) return;
     const target = event.target;
     if (!(target instanceof Element)) return;
     if (target.closest(".input-wrap")) return;
-    activeInput.blur();
+    blurActiveInput();
   },
   { passive: true }
 );
@@ -180,21 +184,30 @@ document.addEventListener(
 document.addEventListener(
   "scroll",
   () => {
-    const activeInput = document.activeElement;
-    if (!(activeInput instanceof HTMLInputElement)) return;
-    if (!inputElements.includes(activeInput)) return;
-    activeInput.blur();
+    blurActiveInput();
+  },
+  { passive: true }
+);
+
+let touchStartY = 0;
+document.addEventListener(
+  "touchstart",
+  (event) => {
+    if (event.touches.length === 1) {
+      touchStartY = event.touches[0].clientY;
+    }
   },
   { passive: true }
 );
 
 document.addEventListener(
   "touchmove",
-  () => {
-    const activeInput = document.activeElement;
-    if (!(activeInput instanceof HTMLInputElement)) return;
-    if (!inputElements.includes(activeInput)) return;
-    activeInput.blur();
+  (event) => {
+    if (event.touches.length !== 1) return;
+    const deltaY = Math.abs(event.touches[0].clientY - touchStartY);
+    if (deltaY > 10) {
+      blurActiveInput();
+    }
   },
   { passive: true }
 );
